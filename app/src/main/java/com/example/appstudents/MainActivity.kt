@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             CagesRepository.getInstance().saveCages()
         }
         else {
+            CagesRepository.getInstance().saveCages()
             StudentsRepository.getInstance().saveStudents()
         }
 //        saveData()
