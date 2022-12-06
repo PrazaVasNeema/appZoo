@@ -1,4 +1,4 @@
 package com.example.appstudents
 
-class CagesInfoViewModel {
+class CageInfoFragment {
 }

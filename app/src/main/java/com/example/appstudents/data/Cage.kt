@@ -7,7 +7,7 @@ import java.util.UUID
 data class Cage(
     val id : UUID =  UUID.randomUUID(),
     var label: String="",
-    var students: StudentsList
+    var students: MutableList<Student> = mutableListOf()
 ){
 
 
