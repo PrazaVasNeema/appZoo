@@ -8,7 +8,7 @@ import com.example.appstudents.MyConstants.TAG
 import com.example.appstudents.data.Student
 import com.example.appstudents.repository.StudentsRepository
 import java.util.*
-
+// Транзит для сохранения данных
 class StudentInfoViewModel : ViewModel() {
     var student : MutableLiveData<Student> = MutableLiveData()
     init {

@@ -16,6 +16,7 @@ import com.example.appstudents.data.Student
 import com.example.appstudents.data.StudentsList
 import com.example.appstudents.R
 
+// Формирование списка элементов и взаимодействие с ним
 
 class StudentListFragment : Fragment() {
     private lateinit var studentListViewModel: StudentListViewModel

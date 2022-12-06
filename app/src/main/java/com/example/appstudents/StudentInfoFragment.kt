@@ -14,7 +14,7 @@ import androidx.activity.OnBackPressedCallback
 import com.example.appstudents.data.Student
 import com.example.appstudents.R
 import java.util.*
-
+// Панель работы с данными элемента
 class StudentInfoFragment : Fragment() {
     private lateinit var studentInfoViewModel: StudentInfoViewModel
     private lateinit var etLastName : EditText

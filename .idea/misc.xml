@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ConvoLine/Temp/android_3_rnd/appZoo/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/ConvoLine/Temp/android_3_rnd/appZoo/app/src/main/res/layout/cage_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/ConvoLine/Temp/android_3_rnd/appZoo/app/src/main/res/layout/cage_list_ement.xml" value="0.36666666666666664" />
+        <entry key="..\:/ConvoLine/Temp/android_3_rnd/appZoo/app/src/main/res/layout/list_of_cages.xml" value="0.27421875" />
+        <entry key="..\:/ConvoLine/Temp/android_3_rnd/appZoo/app/src/main/res/layout/list_of_students.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keela/Desktop/1/appStudent/app/src/main/res/layout/student_list_ement.xml" value="0.25" />
       </map>
     </option>
