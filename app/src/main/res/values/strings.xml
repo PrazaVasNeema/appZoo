@@ -17,4 +17,5 @@
     <string name="lAdd">Добавить</string>
     <string name="lDelete">Удалить</string>
     <string name="lChange">Изменить</string>
+    <string name="lEnter">Перейти</string>
 </resources>

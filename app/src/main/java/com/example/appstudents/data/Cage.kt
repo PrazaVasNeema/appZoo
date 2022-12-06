@@ -13,7 +13,7 @@ data class Cage(
     var birthDate : Date= Date(),
     var faculty : String="",
     var group : String="",
-//    var students: MutableList<Student> = mutableListOf()
+    var students: MutableList<Student> = mutableListOf()
 ){
 
     val age : Int

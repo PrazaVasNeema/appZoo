@@ -164,6 +164,10 @@ class MainActivity : AppCompatActivity() {
  //               showStudentInfo()
                 true
             }
+            R.id.miEnter -> {
+                showStudentsList()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
