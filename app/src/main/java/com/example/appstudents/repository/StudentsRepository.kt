@@ -117,7 +117,7 @@ class StudentsRepository {
 
     fun deInit()
     {
-
+        INSTANCE = null
     }
 
 }

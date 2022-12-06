@@ -86,8 +86,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
-        CagesRepository.getInstance().saveCages()
-        StudentsRepository.getInstance().saveStudents()
+        if(isCage) {
+            CagesRepository.getInstance().saveCages()
+        }
+        else {
+            StudentsRepository.getInstance().saveStudents()
+        }
 //        saveData()
         super.onStop()
     }
@@ -96,6 +100,8 @@ class MainActivity : AppCompatActivity() {
         if(isCage == false)
         {
             isCage = true
+            StudentsRepository.getInstance().saveStudents()
+            StudentsRepository.getInstance().deInit()
             showCagesList()
         }
         else {
