@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.room:room-runtime:2.5.0-beta02'
 
 
     // Принудительно активируем версию 2.5.1

@@ -77,7 +77,7 @@ class StudentListFragment : Fragment() {
     }
 
     private inner class StudentHolder(view: View)
-        : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnLongClickListener{
+        : RecyclerView.ViewHolder(view), View.OnClickListener{
         private lateinit var student: Student
         private val fioTextView: TextView = itemView.findViewById(R.id.tvFIO)
         private val ageTextView: TextView = itemView.findViewById(R.id.tvAge)
@@ -98,24 +98,29 @@ class StudentListFragment : Fragment() {
 
         init {
             itemView.setOnClickListener(this)
-            itemView.setOnLongClickListener(this)
+//!            itemView.setOnLongClickListener(this)
         }
 
+//!        override fun onClick(v: View?) {
+//            Log.d(TAG, "StudentHolder onClick")
+//            studentListViewModel.setStudent(student)
+////            studentListRecyclerView.adapter = StudentsListAdapter(studentListViewModel.studentsList.value!!.items)
+//            updateUI(studentListViewModel.studentsList.value)
+////            (requireActivity() as MainActivity).checkDelete()
+//            (requireActivity() as MainActivity).showStudentInfo()
+//        }
         override fun onClick(v: View?) {
             Log.d(TAG, "StudentHolder onClick")
             studentListViewModel.setStudent(student)
-//            studentListRecyclerView.adapter = StudentsListAdapter(studentListViewModel.studentsList.value!!.items)
-            updateUI(studentListViewModel.studentsList.value)
-//            (requireActivity() as MainActivity).checkDelete()
-            (requireActivity() as MainActivity).showStudentInfo()
+            studentListRecyclerView.adapter = StudentsListAdapter(studentListViewModel.studentsList.value!!.items)
         }
 
-        override fun onLongClick(v: View?): Boolean {
-            TODO("Not yet implemented")
-            studentListViewModel.setStudent(student)
-            (requireActivity() as MainActivity).checkDelete(student)
-            return true
-        }
+//!        override fun onLongClick(v: View?): Boolean {
+//            TODO("Not yet implemented")
+//            studentListViewModel.setStudent(student)
+//            (requireActivity() as MainActivity).checkDelete(student)
+//            return true
+//        }
     }
 
     private fun updateUI(studentsList: StudentsList? = null){
