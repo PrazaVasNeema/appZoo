@@ -1,7 +1,6 @@
 package com.example.appstudents
 
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.appstudents.MyConstants.TAG
@@ -18,19 +17,15 @@ class StudentInfoViewModel : ViewModel() {
         }
     }
 
-    fun save(lastName: String="",
-             firstName: String="",
-             middleName: String="",
-             birthDate : Date = Date(),
-             faculty : String="",
-             group : String=""){
+    fun save(name: String="",
+             order: String="",
+             family: String="",
+             birthDate : Date = Date()){
         if (student.value == null) student.value= Student()
-        student.value!!.lastName=lastName
-        student.value!!.firstName=firstName
-        student.value!!.middleName=middleName
+        student.value!!.name=name
+        student.value!!.order=order
+        student.value!!.family=family
         student.value!!.birthDate=birthDate
-        student.value!!.faculty=faculty
-        student.value!!.group=group
         StudentsRepository.getInstance().updateStudent(student.value!!)
     }
 }

@@ -20,19 +20,9 @@ class CageInfoViewModel : ViewModel() {
         }
     }
 
-    fun save(lastName: String="",
-             firstName: String="",
-             middleName: String="",
-             birthDate : Date = Date(),
-             faculty : String="",
-             group : String=""){
+    fun save(label: String=""){
         if (cage.value == null) cage.value= Cage()
-        cage.value!!.lastName=lastName
-        cage.value!!.firstName=firstName
-        cage.value!!.middleName=middleName
-        cage.value!!.birthDate=birthDate
-        cage.value!!.faculty=faculty
-        cage.value!!.group=group
+        cage.value!!.label=label
         CagesRepository.getInstance().updateCage(cage.value!!)
     }
 }

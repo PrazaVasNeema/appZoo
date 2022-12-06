@@ -79,9 +79,7 @@ class CageListFragment : Fragment() {
     private inner class CageHolder(view: View)
         : RecyclerView.ViewHolder(view), View.OnClickListener{
         private lateinit var cage: Cage
-        private val fioTextView: TextView = itemView.findViewById(R.id.tvFIO)
-        private val ageTextView: TextView = itemView.findViewById(R.id.tvAge)
-        private val groupTextView: TextView = itemView.findViewById(R.id.tvGroup)
+        private val label: TextView = itemView.findViewById(R.id.tvLabel)
         private val clLayout: ConstraintLayout = itemView.findViewById(R.id.clCL)
 
         fun bind(cage: Cage) {
@@ -90,9 +88,7 @@ class CageListFragment : Fragment() {
             clLayout.setBackgroundColor(context!!.getColor(R.color.white))
             if (cage.id==cageListViewModel.cage.id)
                 clLayout.setBackgroundColor(context!!.getColor(R.color.element))
-            fioTextView.text="${cage.lastName} ${cage.firstName} ${cage.middleName}"
-            groupTextView.text=cage.group
-            ageTextView.text=cage.age.toString()
+            label.text="${cage.label}"
             Log.d(MyConstants.TAG, "bind 2 $cage")
         }
 

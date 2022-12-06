@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import com.example.appstudents.data.Cage
@@ -16,12 +15,7 @@ import java.util.*
 
 class CageInfoFragment : Fragment(){
     private lateinit var cageInfoViewModel: CageInfoViewModel
-    private lateinit var etLastName : EditText
-    private lateinit var etFirstName : EditText
-    private lateinit var etMiddleName : EditText
-    private lateinit var etFaculty : EditText
-    private lateinit var etGroup : EditText
-    private lateinit var dpDate : DatePicker
+    private lateinit var label : EditText
     private lateinit var btnSave : Button
     private lateinit var btnCancel : Button
 
@@ -40,12 +34,7 @@ class CageInfoFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val view=inflater.inflate(R.layout.cage_info, container, false)
-        etLastName=view.findViewById(R.id.lastName)
-        etFirstName=view.findViewById(R.id.firstName)
-        etMiddleName=view.findViewById(R.id.middleName)
-        etFaculty=view.findViewById(R.id.faculty)
-        etGroup=view.findViewById(R.id.group)
-        dpDate=view.findViewById(R.id.datePicker)
+        label=view.findViewById(R.id.label)
         btnSave=view.findViewById(R.id.btOk)
         btnSave.setOnClickListener {
             saveCage()
@@ -85,26 +74,12 @@ class CageInfoFragment : Fragment(){
 
 
     fun saveCage(){
-        val dateBirth = GregorianCalendar(dpDate.year,  dpDate.month, dpDate.dayOfMonth)
         cageInfoViewModel.save(
-            etLastName.text.toString(),
-            etFirstName.text.toString(),
-            etMiddleName.text.toString(),
-            dateBirth.time,
-            etFaculty.text.toString(),
-            etGroup.text.toString()
+            label.text.toString(),
         )
     }
     fun updateUI(cage: Cage){
-        etLastName.setText(cage.lastName)
-        etFirstName.setText(cage.firstName)
-        etMiddleName.setText(cage.middleName)
-        val dateBirth = GregorianCalendar()
-        dateBirth.time=cage.birthDate
-        dpDate.updateDate(dateBirth.get(Calendar.YEAR),dateBirth.get(Calendar.MONTH),dateBirth.get(
-            Calendar.DAY_OF_MONTH))
-        etFaculty.setText(cage.faculty)
-        etGroup.setText(cage.group)
+        label.setText(cage.label)
     }
 
     private fun closeFragment(){

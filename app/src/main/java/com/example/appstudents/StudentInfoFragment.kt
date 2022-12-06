@@ -12,16 +12,13 @@ import android.widget.DatePicker
 import android.widget.EditText
 import androidx.activity.OnBackPressedCallback
 import com.example.appstudents.data.Student
-import com.example.appstudents.R
 import java.util.*
 // Панель работы с данными элемента
 class StudentInfoFragment : Fragment() {
     private lateinit var studentInfoViewModel: StudentInfoViewModel
-    private lateinit var etLastName : EditText
-    private lateinit var etFirstName : EditText
-    private lateinit var etMiddleName : EditText
-    private lateinit var etFaculty : EditText
-    private lateinit var etGroup : EditText
+    private lateinit var name : EditText
+    private lateinit var order : EditText
+    private lateinit var family : EditText
     private lateinit var dpDate : DatePicker
     private lateinit var btnSave : Button
     private lateinit var btnCancel : Button
@@ -41,11 +38,9 @@ class StudentInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view=inflater.inflate(R.layout.student_info, container, false)
-        etLastName=view.findViewById(R.id.lastName)
-        etFirstName=view.findViewById(R.id.firstName)
-        etMiddleName=view.findViewById(R.id.middleName)
-        etFaculty=view.findViewById(R.id.faculty)
-        etGroup=view.findViewById(R.id.group)
+        name=view.findViewById(R.id.label)
+        order=view.findViewById(R.id.order)
+        family=view.findViewById(R.id.family)
         dpDate=view.findViewById(R.id.datePicker)
         btnSave=view.findViewById(R.id.btOk)
         btnSave.setOnClickListener {
@@ -88,23 +83,19 @@ class StudentInfoFragment : Fragment() {
     fun saveStudent(){
         val dateBirth = GregorianCalendar(dpDate.year,  dpDate.month, dpDate.dayOfMonth)
         studentInfoViewModel.save(
-            etLastName.text.toString(),
-            etFirstName.text.toString(),
-            etMiddleName.text.toString(),
+            name.text.toString(),
+            order.text.toString(),
+            family.text.toString(),
             dateBirth.time,
-            etFaculty.text.toString(),
-            etGroup.text.toString()
         )
     }
     fun updateUI(student: Student){
-        etLastName.setText(student.lastName)
-        etFirstName.setText(student.firstName)
-        etMiddleName.setText(student.middleName)
+        name.setText(student.name)
+        order.setText(student.order)
+        family.setText(student.family)
         val dateBirth = GregorianCalendar()
         dateBirth.time=student.birthDate
         dpDate.updateDate(dateBirth.get(Calendar.YEAR),dateBirth.get(Calendar.MONTH),dateBirth.get(Calendar.DAY_OF_MONTH))
-        etFaculty.setText(student.faculty)
-        etGroup.setText(student.group)
     }
 
     private fun closeFragment(){

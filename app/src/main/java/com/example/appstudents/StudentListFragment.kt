@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appstudents.MyConstants.TAG
 import com.example.appstudents.data.Student
 import com.example.appstudents.data.StudentsList
-import com.example.appstudents.R
 
 // Формирование списка элементов и взаимодействие с ним
 
@@ -80,9 +79,10 @@ class StudentListFragment : Fragment() {
     private inner class StudentHolder(view: View)
         : RecyclerView.ViewHolder(view), View.OnClickListener{
         private lateinit var student: Student
-        private val fioTextView: TextView = itemView.findViewById(R.id.tvFIO)
-        private val ageTextView: TextView = itemView.findViewById(R.id.tvAge)
-        private val groupTextView: TextView = itemView.findViewById(R.id.tvGroup)
+        private val name: TextView = itemView.findViewById(R.id.tvLabel)
+        private val order: TextView = itemView.findViewById(R.id.tvOrder)
+        private val age: TextView = itemView.findViewById(R.id.tvAge)
+        private val family: TextView = itemView.findViewById(R.id.tvOrder)
         private val clLayout: ConstraintLayout = itemView.findViewById(R.id.clCL)
 
         fun bind(student: Student) {
@@ -91,9 +91,10 @@ class StudentListFragment : Fragment() {
             clLayout.setBackgroundColor(context!!.getColor(R.color.white))
             if (student.id==studentListViewModel.student.id)
               clLayout.setBackgroundColor(context!!.getColor(R.color.element))
-            fioTextView.text="${student.lastName} ${student.firstName} ${student.middleName}"
-            groupTextView.text=student.group
-            ageTextView.text=student.age.toString()
+            name.text="${student.name}"
+            age.text=student.age.toString()
+            order.text=student.order
+            family.text=student.family
             Log.d(MyConstants.TAG, "bind 2 $student")
         }
 

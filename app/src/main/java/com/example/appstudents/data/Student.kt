@@ -6,12 +6,10 @@ import java.util.UUID
 
 data class Student(
     val id : UUID =  UUID.randomUUID(),
-    var lastName: String="",
-    var firstName: String="",
-    var middleName: String="",
+    var name: String="",
+    var order: String="",
+    var family: String="",
     var birthDate : Date= Date(),
-    var faculty : String="",
-    var group : String=""
     ){
 
 
@@ -33,29 +31,25 @@ data class Student(
         other as Student
 
         if (id != other.id) return false
-        if (lastName != other.lastName) return false
-        if (firstName != other.firstName) return false
-        if (middleName != other.middleName) return false
+        if (name != other.name) return false
+        if (order != other.order) return false
+        if (family != other.family) return false
         if (birthDate != other.birthDate) return false
-        if (faculty != other.faculty) return false
-        if (group != other.group) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + lastName.hashCode()
-        result = 31 * result + firstName.hashCode()
-        result = 31 * result + middleName.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + order.hashCode()
+        result = 31 * result + family.hashCode()
         result = 31 * result + birthDate.hashCode()
-        result = 31 * result + faculty.hashCode()
-        result = 31 * result + group.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "Student(id=$id, lastName='$lastName', firstName='$firstName', middleName='$middleName', birthDate=$birthDate, faculty='$faculty', group='$group')"
+        return "Student(id=$id, lastName='$name', firstName='$order', middleName='$family', birthDate=$birthDate)"
     }
 
 }

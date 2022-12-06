@@ -10,7 +10,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.appstudents.MyConstants.STUDENT_INFO_FRAGMENT_TAG
 import com.example.appstudents.MyConstants.STUDENT_LIST_FRAGMENT_TAG
 import com.example.appstudents.data.Student
@@ -130,9 +129,7 @@ class MainActivity : AppCompatActivity() {
     fun checkDeleteCage(cage: Cage?=CagesRepository.getInstance().cage.value) {
 
         if (cage == null) return
-        val s = cage.lastName + " " +
-                cage.firstName + " " +
-                cage.middleName
+        val s = cage.label
         AlertDialog.Builder(this)
             .setTitle("УДАЛЕНИЕ!") // заголовок
             .setMessage("Вы действительно хотите удалить вольер $s ?") // сообщение
@@ -148,9 +145,9 @@ class MainActivity : AppCompatActivity() {
     fun checkDeleteStudent(student: Student?=StudentsRepository.getInstance().student.value){
 
         if(student == null) return
-        val s=student.lastName+" "+
-                student.firstName+" "+
-                student.middleName
+        val s=student.name+" "+
+                student.order+" "+
+                student.family
         AlertDialog.Builder(this)
             .setTitle("УДАЛЕНИЕ!") // заголовок
             .setMessage("Вы действительно хотите удалить животное $s ?") // сообщение
