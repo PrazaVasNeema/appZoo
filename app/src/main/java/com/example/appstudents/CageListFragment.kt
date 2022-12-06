@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appstudents.MyConstants.TAG
+import com.example.appstudents.data.Cage
+import com.example.appstudents.data.CagesList
 
 // Формирование списка элементов и взаимодействие с ним
 
@@ -41,8 +43,8 @@ class CageListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cageListViewModel = ViewModelProvider(this).get(StudentListViewModel::class.java)
-        cageListViewModel.studentsList.observe(viewLifecycleOwner){
+        cageListViewModel = ViewModelProvider(this).get(CageListViewModel::class.java)
+        cageListViewModel.cagesList.observe(viewLifecycleOwner){
             updateUI(it)
         }
     }
@@ -53,45 +55,45 @@ class CageListFragment : Fragment() {
 //        Log.d(MyConstants.TAG, "StidentListFragment onResume")
 //    }
 
-    private inner class StudentsListAdapter(private val items: List<Student>)
-        : RecyclerView.Adapter<StudentHolder>() {
+    private inner class CagesListAdapter(private val items: List<Cage>)
+        : RecyclerView.Adapter<CageHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): StudentHolder {
+        ): CageHolder {
             Log.d(MyConstants.TAG, "onCreateViewHolder1")
-            val view = layoutInflater.inflate(R.layout.student_list_ement, parent, false)
+            val view = layoutInflater.inflate(R.layout.cage_list_ement, parent, false)
             Log.d(MyConstants.TAG, "onCreateViewHolder2")
-            return StudentHolder(view)
+            return CageHolder(view)
         }
 
         override fun getItemCount(): Int = items.size
 
-        override fun onBindViewHolder(holder: StudentHolder, position: Int) {
+        override fun onBindViewHolder(holder: CageHolder, position: Int) {
             Log.d(MyConstants.TAG, "onBindViewHolder 1 $position")
             holder.bind(items[position])
             Log.d(MyConstants.TAG, "onBindViewHolder 2 $position")
         }
     }
 
-    private inner class StudentHolder(view: View)
+    private inner class CageHolder(view: View)
         : RecyclerView.ViewHolder(view), View.OnClickListener{
-        private lateinit var student: Student
+        private lateinit var cage: Cage
         private val fioTextView: TextView = itemView.findViewById(R.id.tvFIO)
         private val ageTextView: TextView = itemView.findViewById(R.id.tvAge)
         private val groupTextView: TextView = itemView.findViewById(R.id.tvGroup)
         private val clLayout: ConstraintLayout = itemView.findViewById(R.id.clCL)
 
-        fun bind(student: Student) {
-            Log.d(MyConstants.TAG, "bind 1 $student")
-            this.student=student
+        fun bind(cage: Cage) {
+            Log.d(MyConstants.TAG, "bind 1 $cage")
+            this.cage=cage
             clLayout.setBackgroundColor(context!!.getColor(R.color.white))
-            if (student.id==studentListViewModel.student.id)
+            if (cage.id==cageListViewModel.cage.id)
                 clLayout.setBackgroundColor(context!!.getColor(R.color.element))
-            fioTextView.text="${student.lastName} ${student.firstName} ${student.middleName}"
-            groupTextView.text=student.group
-            ageTextView.text=student.age.toString()
-            Log.d(MyConstants.TAG, "bind 2 $student")
+            fioTextView.text="${cage.lastName} ${cage.firstName} ${cage.middleName}"
+            groupTextView.text=cage.group
+            ageTextView.text=cage.age.toString()
+            Log.d(MyConstants.TAG, "bind 2 $cage")
         }
 
         init {
@@ -109,8 +111,8 @@ class CageListFragment : Fragment() {
 //        }
         override fun onClick(v: View?) {
             Log.d(TAG, "StudentHolder onClick")
-            studentListViewModel.setStudent(student)
-            studentListRecyclerView.adapter = StudentsListAdapter(studentListViewModel.studentsList.value!!.items)
+            cageListViewModel.setCage(cage)
+            cageListRecyclerView.adapter = CagesListAdapter(cageListViewModel.cagesList.value!!.items)
         }
 
 //!        override fun onLongClick(v: View?): Boolean {
@@ -121,11 +123,11 @@ class CageListFragment : Fragment() {
 //        }
     }
 
-    private fun updateUI(studentsList: StudentsList? = null){
-        if (studentsList==null) return
+    private fun updateUI(cagesList: CagesList? = null){
+        if (cagesList==null) return
         //  Log.d(TAG, "`StidentListFragment updateUI $studentsList")
-        studentListRecyclerView.layoutManager?.scrollToPosition(studentListViewModel.getPosition())
-        studentListRecyclerView.adapter = StudentsListAdapter(studentsList.items)
+        cageListRecyclerView.layoutManager?.scrollToPosition(cageListViewModel.getPosition())
+        cageListRecyclerView.adapter = CagesListAdapter(cagesList.items)
     }
 
 }

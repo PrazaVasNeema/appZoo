@@ -11,8 +11,8 @@ import com.example.appstudents.data.Student
 import com.example.appstudents.data.StudentsList
 import com.example.appstudents.repository.CagesRepository
 import com.example.appstudents.repository.StudentsRepository
-// Транзит для получения элементов
-class CagesListViewModel : ViewModel() {
+
+class CageListViewModel : ViewModel() {
     var cagesList : MutableLiveData<CagesList> = MutableLiveData()
     private var cageCurrent : Cage = Cage()
     val cage : Cage
@@ -35,7 +35,7 @@ class CagesListViewModel : ViewModel() {
         Log.d(TAG, "Подписались CageListViewModel к CagesRepository")
     }
 
-    public fun setCage(student: Student){
+    public fun setCage(cage: Cage){
         CagesRepository.getInstance().setCurrentCage(cage)
     }
 
