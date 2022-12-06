@@ -1,11 +1,14 @@
 package com.example.appstudents.repository
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.example.appstudents.AppStudentIntendApplication
 import com.example.appstudents.data.Student
 import com.example.appstudents.data.StudentsList
 import com.google.gson.Gson
+import com.example.appstudents.MainActivity
+import com.example.appstudents.MyConstants
 
 
 class StudentsRepository {
@@ -24,15 +27,18 @@ class StudentsRepository {
 
     var studentsList: MutableLiveData<StudentsList?> = MutableLiveData()
     var student : MutableLiveData<Student> = MutableLiveData()
+    var cageUUID : String?
 
     init {
+        cageUUID = MainActivity.cageUUID
         loadStudents()
     }
 
     fun loadStudents(){
+        Log.d(MyConstants.TAG, "StudentsRepository cage UUID: $cageUUID")
         val jsonString=
             PreferenceManager.getDefaultSharedPreferences(AppStudentIntendApplication.applicationContext())
-            .getString("students",null)
+            .getString("students_$cageUUID",null)
         if (!jsonString.isNullOrBlank()) {
             val st = Gson().fromJson(jsonString, StudentsList::class.java)
             if (st!=null)
@@ -46,7 +52,7 @@ class StudentsRepository {
         val preference =
             PreferenceManager.getDefaultSharedPreferences(AppStudentIntendApplication.applicationContext())
         preference.edit().apply {
-            putString("students", jsonStudents)
+            putString("students_$cageUUID", jsonStudents)
             apply()
         }
     }
@@ -107,6 +113,11 @@ class StudentsRepository {
 
     fun newStudent(){
       setCurrentStudent(Student())
+    }
+
+    fun deInit()
+    {
+
     }
 
 }

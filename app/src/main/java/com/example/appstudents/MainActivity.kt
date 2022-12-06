@@ -3,12 +3,14 @@ package com.example.appstudents
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.appstudents.MyConstants.STUDENT_INFO_FRAGMENT_TAG
 import com.example.appstudents.MyConstants.STUDENT_LIST_FRAGMENT_TAG
 import com.example.appstudents.data.Student
@@ -25,10 +27,16 @@ class MainActivity : AppCompatActivity() {
     private var miAdd : MenuItem? = null
     private var miDelete : MenuItem? = null
     private var miChange : MenuItem? = null
+//    var cageUUID : String? = null
+    var isCage : Boolean = true
+    companion object {
+        lateinit var cageUUID: String
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        isCage = true
         showCagesList()
 //        showStudentsList()
         val callback =  object : OnBackPressedCallback(true)
@@ -60,31 +68,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData(){
-//       StudentsRepository.getInstance().loadStudents()
-        CagesRepository.getInstance().loadCages()
+        if(isCage){
+            CagesRepository.getInstance().loadCages()
+        }
+        else{
+            StudentsRepository.getInstance().loadStudents()
+        }
      }
 
     private fun saveData(){
-//        StudentsRepository.getInstance().saveStudents()
-        CagesRepository.getInstance().saveCages()
+        if(isCage){
+            CagesRepository.getInstance().saveCages()
+        }
+        else{
+            StudentsRepository.getInstance().saveStudents()
+        }
     }
 
     override fun onStop() {
-        saveData()
+        CagesRepository.getInstance().saveCages()
+        StudentsRepository.getInstance().saveStudents()
+//        saveData()
         super.onStop()
     }
 
     private fun checkLogout(){
-        AlertDialog.Builder(this)
-            .setTitle("Выход!") // заголовок
-            .setMessage("Вы действительно хотите выйти из приложения ?") // сообщение
-            .setPositiveButton("ДА") { _ , _ ->
-                finish()
-            }
-            .setNegativeButton("НЕТ", null)
-            .setCancelable(true)
-            .create()
-            .show()
+        if(isCage == false)
+        {
+            isCage = true
+            showCagesList()
+        }
+        else {
+            AlertDialog.Builder(this)
+                .setTitle("Выход!") // заголовок
+                .setMessage("Вы действительно хотите выйти из приложения ?") // сообщение
+                .setPositiveButton("ДА") { _, _ ->
+                    finish()
+                }
+                .setNegativeButton("НЕТ", null)
+                .setCancelable(true)
+                .create()
+                .show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -104,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                 cage.middleName
         AlertDialog.Builder(this)
             .setTitle("УДАЛЕНИЕ!") // заголовок
-            .setMessage("Вы действительно хотите удалить студента $s ?") // сообщение
+            .setMessage("Вы действительно хотите удалить вольер $s ?") // сообщение
             .setPositiveButton("ДА") { _, _ ->
                 CagesRepository.getInstance().deleteCage(cage) // ?
             }
@@ -122,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 student.middleName
         AlertDialog.Builder(this)
             .setTitle("УДАЛЕНИЕ!") // заголовок
-            .setMessage("Вы действительно хотите удалить студента $s ?") // сообщение
+            .setMessage("Вы действительно хотите удалить животное $s ?") // сообщение
             .setPositiveButton("ДА") { _ , _ ->
                 StudentsRepository.getInstance().deleteStudent(student) // ?
             }
@@ -150,21 +175,36 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.miAdd -> {
-                showNewCage()
-//                showNewStudent()
+                if(isCage){
+                    showNewCage()
+                }
+                else{
+                    showNewStudent()
+                }
                 true
             }
             R.id.miDelete -> {
-                checkDeleteCage()
-//                checkDelete()
+                if(isCage){
+                    checkDeleteCage()
+                }
+                else{
+                    checkDeleteStudent()
+                }
                 true
             }
             R.id.miChange -> {
-                showCageInfo()
- //               showStudentInfo()
+                if(isCage){
+                    showCageInfo()
+                }
+                else{
+                    showStudentInfo()
+                }
                 true
             }
             R.id.miEnter -> {
+                cageUUID = CagesRepository.getInstance().cage.value?.id.toString()
+                Log.d(MyConstants.TAG, "MainActivity UUID: $cageUUID")
+                isCage = false
                 showStudentsList()
                 true
             }
@@ -204,7 +244,7 @@ class MainActivity : AppCompatActivity() {
         showStudentInfo()
     }
 
-    fun showStudentsList(){
+    fun showStudentsList(cage: Cage?=CagesRepository.getInstance().cage.value){
         miAdd?.isVisible=true
         miDelete?.isVisible=true
         miChange?.isVisible=true
