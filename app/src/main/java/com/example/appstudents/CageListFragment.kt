@@ -110,7 +110,7 @@ class CageListFragment : Fragment() {
 //            (requireActivity() as MainActivity).showStudentInfo()
 //        }
         override fun onClick(v: View?) {
-            Log.d(TAG, "StudentHolder onClick")
+            Log.d(TAG, "CageHolder onClick")
             cageListViewModel.setCage(cage)
             cageListRecyclerView.adapter = CagesListAdapter(cageListViewModel.cagesList.value!!.items)
         }

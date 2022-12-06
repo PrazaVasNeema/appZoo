@@ -34,7 +34,7 @@ class CagesRepository {
 
     fun loadCages(){
         val jsonString=
-            PreferenceManager.getDefaultSharedPreferences(AppCageIntendApplication.applicationContext())
+            PreferenceManager.getDefaultSharedPreferences(AppStudentIntendApplication.applicationContext())
                 .getString("cages",null)
         if (!jsonString.isNullOrBlank()) {
             val st = Gson().fromJson(jsonString, CagesList::class.java)
@@ -47,9 +47,9 @@ class CagesRepository {
         val gson = Gson()
         var jsonCages = gson.toJson(cagesList.value)
         val preference =
-            PreferenceManager.getDefaultSharedPreferences(AppCageIntendApplication.applicationContext())
+            PreferenceManager.getDefaultSharedPreferences(AppStudentIntendApplication.applicationContext())
         preference.edit().apply {
-            putString("students", jsonCages)
+            putString("cages", jsonCages)
             apply()
         }
     }

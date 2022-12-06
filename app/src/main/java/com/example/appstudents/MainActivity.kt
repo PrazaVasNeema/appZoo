@@ -14,6 +14,11 @@ import com.example.appstudents.MyConstants.STUDENT_LIST_FRAGMENT_TAG
 import com.example.appstudents.data.Student
 import com.example.appstudents.repository.StudentsRepository
 
+import com.example.appstudents.MyConstants.CAGE_INFO_FRAGMENT_TAG
+import com.example.appstudents.MyConstants.CAGE_LIST_FRAGMENT_TAG
+import com.example.appstudents.data.Cage
+import com.example.appstudents.repository.CagesRepository
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +29,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        showStudentsList()
+        showCagesList()
+//        showStudentsList()
         val callback =  object : OnBackPressedCallback(true)
             {
                 override fun handleOnBackPressed() {
@@ -54,11 +60,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadData(){
-       StudentsRepository.getInstance().loadStudents()
+//       StudentsRepository.getInstance().loadStudents()
+        CagesRepository.getInstance().loadCages()
      }
 
     private fun saveData(){
-        StudentsRepository.getInstance().saveStudents()
+//        StudentsRepository.getInstance().saveStudents()
+        CagesRepository.getInstance().saveCages()
     }
 
     override fun onStop() {
@@ -88,7 +96,25 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun checkDelete(student: Student?=StudentsRepository.getInstance().student.value){
+    fun checkDeleteCage(cage: Cage?=CagesRepository.getInstance().cage.value) {
+
+        if (cage == null) return
+        val s = cage.lastName + " " +
+                cage.firstName + " " +
+                cage.middleName
+        AlertDialog.Builder(this)
+            .setTitle("УДАЛЕНИЕ!") // заголовок
+            .setMessage("Вы действительно хотите удалить студента $s ?") // сообщение
+            .setPositiveButton("ДА") { _, _ ->
+                CagesRepository.getInstance().deleteCage(cage) // ?
+            }
+            .setNegativeButton("НЕТ", null)
+            .setCancelable(true)
+            .create()
+            .show()
+    }
+
+    fun checkDeleteStudent(student: Student?=StudentsRepository.getInstance().student.value){
 
         if(student == null) return
         val s=student.lastName+" "+
@@ -104,6 +130,7 @@ class MainActivity : AppCompatActivity() {
             .setCancelable(true)
             .create()
             .show()
+
 
 //        val s=StudentsRepository.getInstance().student.value?.lastName+" "+
 //                StudentsRepository.getInstance().student.value?.firstName+" "+
@@ -123,19 +150,49 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.miAdd -> {
-                showNewStudent()
+                showNewCage()
+//                showNewStudent()
                 true
             }
             R.id.miDelete -> {
-                checkDelete()
+                checkDeleteCage()
+//                checkDelete()
                 true
             }
             R.id.miChange -> {
-                showStudentInfo()
+                showCageInfo()
+ //               showStudentInfo()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun showNewCage(){
+        CagesRepository.getInstance().newCage()
+        showCageInfo()
+    }
+
+    fun showCagesList(){
+        miAdd?.isVisible=true
+        miDelete?.isVisible=true
+        miChange?.isVisible=true
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame, CageListFragment.getInstance(),CAGE_LIST_FRAGMENT_TAG)
+            //.addToBackStack(null)
+            .commit()
+    }
+
+    fun showCageInfo(){
+        miAdd?.isVisible=false
+        miDelete?.isVisible=false
+        miChange?.isVisible=false
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame, CageInfoFragment.getInstance(), CAGE_INFO_FRAGMENT_TAG)
+            // .addToBackStack(null)
+            .commit()
     }
 
     fun showNewStudent(){
