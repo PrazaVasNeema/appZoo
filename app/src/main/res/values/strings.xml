@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">appZoo</string>
-    <string name="lCageLabel">название вольера</string>
+    <string name="lCageLabel">название вольера:</string>
+    <string name="lCageLabelListElement">Вольер:</string>
     <string name="hintCageLabel">введите название</string>
-    <string name="lAnimalName">Кличка</string>
+    <string name="lAnimalName">Кличка:</string>
     <string name="hAnimalName">введите кличку</string>
-    <string name="lAnimalOrder">отряд</string>
+    <string name="lAnimalOrder">отряд:</string>
     <string name="hintAnimalOrder">введите отряд</string>
-    <string name="lFamily">семейство</string>
+    <string name="lFamily">семейство:</string>
     <string name="hintFamily">введите семейство</string>
     <string name="lCancel">отмена</string>
     <string name="lSave">сохранить</string>
-    <string name="lAge">возраст</string>
+    <string name="lAge">возраст:</string>
     <string name="eEmptyText">a</string>
     <string name="lAdd">Добавить</string>
     <string name="lDelete">Удалить</string>
