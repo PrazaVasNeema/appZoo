@@ -77,7 +77,7 @@ class CageListFragment : Fragment() {
     }
 
     private inner class CageHolder(view: View)
-        : RecyclerView.ViewHolder(view), View.OnClickListener{
+        : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnLongClickListener{
         private lateinit var cage: Cage
         private val label: TextView = itemView.findViewById(R.id.tvLabel)
         private val clLayout: ConstraintLayout = itemView.findViewById(R.id.clCL)
@@ -94,7 +94,7 @@ class CageListFragment : Fragment() {
 
         init {
             itemView.setOnClickListener(this)
-//!            itemView.setOnLongClickListener(this)
+            itemView.setOnLongClickListener(this)
         }
 
         //!        override fun onClick(v: View?) {
@@ -107,16 +107,26 @@ class CageListFragment : Fragment() {
 //        }
         override fun onClick(v: View?) {
             Log.d(TAG, "CageHolder onClick")
+//            cageListViewModel.setCage(cage)
+//            cageListRecyclerView.adapter = CagesListAdapter(cageListViewModel.cagesList.value!!.items)
+
             cageListViewModel.setCage(cage)
             cageListRecyclerView.adapter = CagesListAdapter(cageListViewModel.cagesList.value!!.items)
+//            updateUI(cageListViewModel.cagesList.value)
+
+            (requireActivity() as MainActivity).enterCage(cage)
         }
 
-//!        override fun onLongClick(v: View?): Boolean {
+        override fun onLongClick(v: View?): Boolean {
 //            TODO("Not yet implemented")
-//            studentListViewModel.setStudent(student)
-//            (requireActivity() as MainActivity).checkDelete(student)
-//            return true
-//        }
+            cageListViewModel.setCage(cage)
+            cageListRecyclerView.adapter = CagesListAdapter(cageListViewModel.cagesList.value!!.items)
+            updateUI(cageListViewModel.cagesList.value)
+            (requireActivity() as MainActivity).cageDialogueWindow(cage)
+
+
+            return true
+        }
     }
 
     private fun updateUI(cagesList: CagesList? = null){

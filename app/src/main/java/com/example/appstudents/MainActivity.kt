@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         onBackPressedDispatcher.addCallback(this,callback)
+
     }
 
 
@@ -143,6 +144,25 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    fun cageDialogueWindow(cage: Cage?=CagesRepository.getInstance().cage.value)
+    {
+        if (cage == null) return
+        val s = cage.label
+        AlertDialog.Builder(this)
+            .setTitle(cage.label) // заголовок
+//            .setMessage("Вы действительно хотите удалить вольер $s ?") // сообщение
+            .setPositiveButton("Изменить") { _, _ ->
+                showCageInfo() // ?
+            }
+            .setNegativeButton("Удалить") { _, _ ->
+                CagesRepository.getInstance().deleteCage(cage) // ?
+            }
+            .setNeutralButton("Отмена", null)
+            .setCancelable(true)
+            .create()
+            .show()
+    }
+
     fun checkDeleteStudent(student: Student?=StudentsRepository.getInstance().student.value){
 
         if(student == null) return
@@ -206,14 +226,24 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.miEnter -> {
-                cageUUID = CagesRepository.getInstance().cage.value?.id.toString()
-                Log.d(MyConstants.TAG, "MainActivity UUID: $cageUUID")
-                isCage = false
-                showStudentsList()
+//                cageUUID = CagesRepository.getInstance().cage.value?.id.toString()
+//                Log.d(MyConstants.TAG, "MainActivity UUID: $cageUUID")
+//                isCage = false
+//                showStudentsList()
+                enterCage();
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun enterCage(cage: Cage?=CagesRepository.getInstance().cage.value)
+    {
+        if (cage == null) return
+        cageUUID = cage.id.toString()
+        Log.d(MyConstants.TAG, "MainActivity UUID: $cageUUID")
+        isCage = false
+        showStudentsList()
     }
 
     fun showNewCage(){
