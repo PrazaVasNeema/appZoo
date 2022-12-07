@@ -17,4 +17,10 @@
     <string name="lDelete">Удалить</string>
     <string name="lChange">Изменить</string>
     <string name="lEnter">Перейти</string>
+
+    <string name="cage_label_error">Название вольера должно содержать только буквы и цифры, быть не пустым</string>
+    <string name="animal_name_error">Кличка животного должна содержать только буквы и быть не пустым</string>
+    <string name="animal_order_error">Название отряда животного должно содержать только буквы и быть не пустым</string>
+    <string name="animal_family_error">Название семейства животного должно содержать только буквы и быть не пустым</string>
+    <string name="animal_date_error">Дата должна быть в интервале 2000 - настоящее время</string>
 </resources>

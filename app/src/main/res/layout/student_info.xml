@@ -114,8 +114,8 @@
         android:id="@+id/datePicker"
         android:layout_width="0dp"
         android:layout_height="167dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,5 +156,17 @@
             android:text="@string/lCancel"
             android:textColor="#000000" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDPError"
+        style="@android:style/Widget.EditText"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        app:layout_constraintStart_toEndOf="@+id/datePicker"
+        app:layout_constraintTop_toBottomOf="@+id/clMiddle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

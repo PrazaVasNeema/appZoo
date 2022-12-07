@@ -18,6 +18,7 @@ class CageInfoFragment : Fragment(){
     private lateinit var label : EditText
     private lateinit var btnSave : Button
     private lateinit var btnCancel : Button
+    var errorFlag: Boolean = false
 
     companion object {
         private var INSTANCE: CageInfoFragment? = null
@@ -37,8 +38,11 @@ class CageInfoFragment : Fragment(){
         label=view.findViewById(R.id.label)
         btnSave=view.findViewById(R.id.btOk)
         btnSave.setOnClickListener {
+            errorFlag = false
             saveCage()
-            closeFragment()
+            if (!errorFlag) {
+                closeFragment()
+            }
         }
         btnCancel=view.findViewById(R.id.btnCancel)
         btnCancel.setOnClickListener {
@@ -74,9 +78,17 @@ class CageInfoFragment : Fragment(){
 
 
     fun saveCage(){
-        cageInfoViewModel.save(
-            label.text.toString(),
-        )
+        val labelRegex = "^[А-Яа-яA-Za-z0-9]+$"
+
+        if (!labelRegex.toRegex().matches(label.text)) {
+            label.error = getString(R.string.cage_label_error)
+            errorFlag = true
+        }
+        if(!errorFlag) {
+            cageInfoViewModel.save(
+                label.text.toString(),
+            )
+        }
     }
     fun updateUI(cage: Cage){
         label.setText(cage.label)

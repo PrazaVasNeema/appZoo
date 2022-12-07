@@ -1,18 +1,21 @@
 package com.example.appstudents
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.appstudents.data.Student
+import java.text.SimpleDateFormat
 import java.util.*
+
 // Панель работы с данными элемента
 class StudentInfoFragment : Fragment() {
     private lateinit var studentInfoViewModel: StudentInfoViewModel
@@ -22,6 +25,8 @@ class StudentInfoFragment : Fragment() {
     private lateinit var dpDate : DatePicker
     private lateinit var btnSave : Button
     private lateinit var btnCancel : Button
+    private lateinit var tvDpError: TextView
+    var errorFlag: Boolean = false
 
     companion object {
         private var INSTANCE: StudentInfoFragment? = null
@@ -42,10 +47,15 @@ class StudentInfoFragment : Fragment() {
         order=view.findViewById(R.id.order)
         family=view.findViewById(R.id.family)
         dpDate=view.findViewById(R.id.datePicker)
+        tvDpError = view.findViewById(R.id.tvDPError)
         btnSave=view.findViewById(R.id.btOk)
         btnSave.setOnClickListener {
+            tvDpError.error = null
+            errorFlag = false
             saveStudent()
-            closeFragment()
+            if (!errorFlag) {
+                closeFragment()
+            }
         }
         btnCancel=view.findViewById(R.id.btnCancel)
         btnCancel.setOnClickListener {
@@ -81,13 +91,35 @@ class StudentInfoFragment : Fragment() {
 
 
     fun saveStudent(){
+        val nameRegex = "^[А-Яа-яA-Za-z]+$"
+        val currentTime = GregorianCalendar.getInstance().time
         val dateBirth = GregorianCalendar(dpDate.year,  dpDate.month, dpDate.dayOfMonth)
-        studentInfoViewModel.save(
-            name.text.toString(),
-            order.text.toString(),
-            family.text.toString(),
-            dateBirth.time,
-        )
+
+        if (!nameRegex.toRegex().matches(name.text)) {
+            name.error = getString(R.string.animal_name_error)
+            errorFlag = true
+        }
+        if (!nameRegex.toRegex().matches(order.text)) {
+            order.error = getString(R.string.animal_order_error)
+            errorFlag = true
+        }
+        if (!nameRegex.toRegex().matches(family.text)) {
+            family.error = getString(R.string.animal_family_error)
+            errorFlag = true
+        }
+        if (dpDate.year < 2000 || currentTime.before(dateBirth.time)) {
+            tvDpError.requestFocus()
+            tvDpError.error = getString(R.string.animal_date_error)
+            errorFlag = true
+        }
+        if(!errorFlag) {
+            studentInfoViewModel.save(
+                name.text.toString(),
+                order.text.toString(),
+                family.text.toString(),
+                dateBirth.time,
+            )
+        }
     }
     fun updateUI(student: Student){
         name.setText(student.name)
