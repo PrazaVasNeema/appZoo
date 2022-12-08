@@ -82,7 +82,7 @@ class StudentListFragment : Fragment() {
         private val name: TextView = itemView.findViewById(R.id.tvLabel)
         private val order: TextView = itemView.findViewById(R.id.tvOrder)
         private val age: TextView = itemView.findViewById(R.id.tvAge)
-        private val family: TextView = itemView.findViewById(R.id.tvOrder)
+        private val family: TextView = itemView.findViewById(R.id.tvFamily)
         private val clLayout: ConstraintLayout = itemView.findViewById(R.id.clCL)
 
         fun bind(student: Student) {

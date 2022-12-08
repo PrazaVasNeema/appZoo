@@ -166,8 +166,7 @@ class MainActivity : AppCompatActivity() {
     fun checkDeleteStudent(student: Student?=StudentsRepository.getInstance().student.value){
 
         if(student == null) return
-        val s=student.name+" "+
-                student.order+" "+
+        val s=student.name+" семейства"+
                 student.family
         AlertDialog.Builder(this)
             .setTitle("УДАЛЕНИЕ!") // заголовок
@@ -218,10 +217,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.miChange -> {
                 if(isCage){
-                    showCageInfo()
+                    if(CagesRepository.getInstance().cage.value != null)
+                        showCageInfo()
                 }
                 else{
-                    showStudentInfo()
+                    if(StudentsRepository.getInstance().student.value != null)
+                        showStudentInfo()
                 }
                 true
             }
