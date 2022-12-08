@@ -225,14 +225,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
-            R.id.miEnter -> {
-//                cageUUID = CagesRepository.getInstance().cage.value?.id.toString()
-//                Log.d(MyConstants.TAG, "MainActivity UUID: $cageUUID")
-//                isCage = false
-//                showStudentsList()
-                enterCage();
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }

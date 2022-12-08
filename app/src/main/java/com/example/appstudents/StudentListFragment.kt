@@ -128,6 +128,9 @@ class StudentListFragment : Fragment() {
             Log.d(TAG, "---------------------onLongClick")
 
             studentListViewModel.setStudent(student)
+
+            updateUI(studentListViewModel.studentsList.value)
+
             (requireActivity() as MainActivity).checkDeleteStudent(student)
             return true
         }
