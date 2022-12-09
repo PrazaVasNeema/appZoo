@@ -1,24 +1,24 @@
 package com.example.appstudents
 
+
+import androidx.appcompat.app.ActionBar
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
-
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.example.appstudents.MyConstants.STUDENT_INFO_FRAGMENT_TAG
-import com.example.appstudents.MyConstants.STUDENT_LIST_FRAGMENT_TAG
-import com.example.appstudents.data.Student
-import com.example.appstudents.repository.StudentsRepository
-
 import com.example.appstudents.MyConstants.CAGE_INFO_FRAGMENT_TAG
 import com.example.appstudents.MyConstants.CAGE_LIST_FRAGMENT_TAG
+import com.example.appstudents.MyConstants.STUDENT_INFO_FRAGMENT_TAG
+import com.example.appstudents.MyConstants.STUDENT_LIST_FRAGMENT_TAG
 import com.example.appstudents.data.Cage
+import com.example.appstudents.data.Student
 import com.example.appstudents.repository.CagesRepository
+import com.example.appstudents.repository.StudentsRepository
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         onBackPressedDispatcher.addCallback(this,callback)
+        title = "Вольеры"
 
     }
 
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             StudentsRepository.getInstance().saveStudents()
             StudentsRepository.getInstance().deInit()
             showCagesList()
+            title = "Вольеры"
         }
         else {
             AlertDialog.Builder(this)
@@ -236,6 +238,7 @@ class MainActivity : AppCompatActivity() {
         cageUUID = cage.id.toString()
         Log.d(MyConstants.TAG, "MainActivity UUID: $cageUUID")
         isCage = false
+        title = cage.label
         showStudentsList()
     }
 
@@ -272,6 +275,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showStudentsList(cage: Cage?=CagesRepository.getInstance().cage.value){
+
         miAdd?.isVisible=true
         miDelete?.isVisible=true
         miChange?.isVisible=true
