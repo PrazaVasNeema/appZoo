@@ -91,7 +91,7 @@ class StudentInfoFragment : Fragment() {
 
 
     fun saveStudent(){
-        val nameRegex = "^[А-Яа-яA-Za-z]+$"
+        val nameRegex = "^[А-Яа-яA-Za-z-' ']+$"
         val currentTime = GregorianCalendar.getInstance().time
         val dateBirth = GregorianCalendar(dpDate.year,  dpDate.month, dpDate.dayOfMonth)
 

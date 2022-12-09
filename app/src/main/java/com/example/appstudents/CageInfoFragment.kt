@@ -78,7 +78,7 @@ class CageInfoFragment : Fragment(){
 
 
     fun saveCage(){
-        val labelRegex = "^[А-Яа-яA-Za-z0-9]+$"
+        val labelRegex = "^[А-Яа-яA-Za-z0-9-' ']+$"
 
         if (!labelRegex.toRegex().matches(label.text)) {
             label.error = getString(R.string.cage_label_error)
