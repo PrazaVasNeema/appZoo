@@ -1,18 +1,13 @@
 package com.example.appstudents.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.example.appstudents.AppStudentIntendApplication
 import com.example.appstudents.data.Student
 import com.example.appstudents.data.StudentsList
 import com.google.gson.Gson
-import com.example.appstudents.MainActivity
-import com.example.appstudents.MyConstants
-
 
 class StudentsRepository {
-
     companion object {
         private var INSTANCE: StudentsRepository? = null
 
@@ -27,18 +22,15 @@ class StudentsRepository {
 
     var studentsList: MutableLiveData<StudentsList?> = MutableLiveData()
     var student : MutableLiveData<Student> = MutableLiveData()
-    var cageUUID : String?
 
     init {
-        cageUUID = MainActivity.cageUUID
         loadStudents()
     }
 
     fun loadStudents(){
-        Log.d(MyConstants.TAG, "StudentsRepository cage UUID: $cageUUID")
         val jsonString=
             PreferenceManager.getDefaultSharedPreferences(AppStudentIntendApplication.applicationContext())
-            .getString("students_$cageUUID",null)
+            .getString("students",null)
         if (!jsonString.isNullOrBlank()) {
             val st = Gson().fromJson(jsonString, StudentsList::class.java)
             if (st!=null)
@@ -52,11 +44,10 @@ class StudentsRepository {
         val preference =
             PreferenceManager.getDefaultSharedPreferences(AppStudentIntendApplication.applicationContext())
         preference.edit().apply {
-            putString("students_$cageUUID", jsonStudents)
+            putString("students", jsonStudents)
             apply()
         }
     }
-
 
     fun setCurrentStudent(position: Int){
         if (studentsList.value==null || studentsList.value!!.items==null ||
@@ -79,12 +70,9 @@ class StudentsRepository {
     fun getPosition(student: Student): Int = studentsList.value?.items?.indexOfFirst {
         it.id == student.id } ?: -1
 
-    fun getPosition() :Int
-    {
+    fun getPosition() :Int{
         if (student.value!=null)
-        {
             return getPosition(student.value!!)
-        }
         else
             return 0
     }
@@ -104,6 +92,7 @@ class StudentsRepository {
         if (studentsListTmp.value!!.items.remove(student)) {
             studentsList.postValue(studentsListTmp.value)
         }
+        newStudent()
     }
 
     fun deleteStudent(){
@@ -113,11 +102,6 @@ class StudentsRepository {
 
     fun newStudent(){
       setCurrentStudent(Student())
-    }
-
-    fun deInit()
-    {
-        INSTANCE = null
     }
 
 }

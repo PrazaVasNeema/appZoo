@@ -1,32 +1,29 @@
 package com.example.appstudents
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.appstudents.data.Student
-import java.text.SimpleDateFormat
 import java.util.*
 
-// Панель работы с данными элемента
 class StudentInfoFragment : Fragment() {
     private lateinit var studentInfoViewModel: StudentInfoViewModel
-    private lateinit var name : EditText
-    private lateinit var order : EditText
-    private lateinit var family : EditText
+    private lateinit var etLastName : EditText
+    private lateinit var etFirstName : EditText
+    private lateinit var etMiddleName : EditText
+    private lateinit var etFaculty : EditText
+    private lateinit var etGroup : EditText
     private lateinit var dpDate : DatePicker
     private lateinit var btnSave : Button
     private lateinit var btnCancel : Button
-    private lateinit var tvDpError: TextView
-    var errorFlag: Boolean = false
 
     companion object {
         private var INSTANCE: StudentInfoFragment? = null
@@ -43,19 +40,16 @@ class StudentInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view=inflater.inflate(R.layout.student_info, container, false)
-        name=view.findViewById(R.id.label)
-        order=view.findViewById(R.id.order)
-        family=view.findViewById(R.id.family)
+        etLastName=view.findViewById(R.id.lastName)
+        etFirstName=view.findViewById(R.id.firstName)
+        etMiddleName=view.findViewById(R.id.middleName)
+        etFaculty=view.findViewById(R.id.faculty)
+        etGroup=view.findViewById(R.id.group)
         dpDate=view.findViewById(R.id.datePicker)
-        tvDpError = view.findViewById(R.id.tvDPError)
         btnSave=view.findViewById(R.id.btOk)
         btnSave.setOnClickListener {
-            tvDpError.error = null
-            errorFlag = false
             saveStudent()
-            if (!errorFlag) {
-                closeFragment()
-            }
+            closeFragment()
         }
         btnCancel=view.findViewById(R.id.btnCancel)
         btnCancel.setOnClickListener {
@@ -89,45 +83,26 @@ class StudentInfoFragment : Fragment() {
         )
     }
 
-
     fun saveStudent(){
-        val nameRegex = "^[А-Яа-яA-Za-z-' ']+$"
-        val currentTime = GregorianCalendar.getInstance().time
         val dateBirth = GregorianCalendar(dpDate.year,  dpDate.month, dpDate.dayOfMonth)
-
-        if (!nameRegex.toRegex().matches(name.text)) {
-            name.error = getString(R.string.animal_name_error)
-            errorFlag = true
-        }
-        if (!nameRegex.toRegex().matches(order.text)) {
-            order.error = getString(R.string.animal_order_error)
-            errorFlag = true
-        }
-        if (!nameRegex.toRegex().matches(family.text)) {
-            family.error = getString(R.string.animal_family_error)
-            errorFlag = true
-        }
-        if (dpDate.year < 2000 || currentTime.before(dateBirth.time)) {
-            tvDpError.requestFocus()
-            tvDpError.error = getString(R.string.animal_date_error)
-            errorFlag = true
-        }
-        if(!errorFlag) {
-            studentInfoViewModel.save(
-                name.text.toString(),
-                order.text.toString(),
-                family.text.toString(),
-                dateBirth.time,
-            )
-        }
+        studentInfoViewModel.save(
+            etLastName.text.toString(),
+            etFirstName.text.toString(),
+            etMiddleName.text.toString(),
+            dateBirth.time,
+            etFaculty.text.toString(),
+            etGroup.text.toString()
+        )
     }
     fun updateUI(student: Student){
-        name.setText(student.name)
-        order.setText(student.order)
-        family.setText(student.family)
+        etLastName.setText(student.lastName)
+        etFirstName.setText(student.firstName)
+        etMiddleName.setText(student.middleName)
         val dateBirth = GregorianCalendar()
         dateBirth.time=student.birthDate
         dpDate.updateDate(dateBirth.get(Calendar.YEAR),dateBirth.get(Calendar.MONTH),dateBirth.get(Calendar.DAY_OF_MONTH))
+        etFaculty.setText(student.faculty)
+        etGroup.setText(student.group)
     }
 
     private fun closeFragment(){

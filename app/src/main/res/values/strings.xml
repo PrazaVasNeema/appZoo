@@ -1,26 +1,20 @@
 <resources>
-    <string name="app_name">appZoo</string>
-    <string name="lCageLabel">название вольера:</string>
-    <string name="lCageLabelListElement">Вольер:</string>
-    <string name="hintCageLabel">введите название</string>
-    <string name="lAnimalName">Кличка:</string>
-    <string name="hAnimalName">введите кличку</string>
-    <string name="lAnimalOrder">отряд:</string>
-    <string name="hintAnimalOrder">введите отряд</string>
-    <string name="lFamily">семейство:</string>
-    <string name="hintFamily">введите семейство</string>
+    <string name="app_name">appStudents</string>
+    <string name="lLastName">фамилия</string>
+    <string name="hintMiddleName">введите отчество</string>
+    <string name="lMiddleName">отчество</string>
+    <string name="hintFirstName">введите имя</string>
+    <string name="lFirstNAme">имя</string>
+    <string name="hintLastName">введите фамилию</string>
+    <string name="lFaculty">факультет</string>
+    <string name="hintFaculty">введите факультет</string>
+    <string name="lGroup">группа</string>
+    <string name="hintGroup">введите номер группы</string>
     <string name="lCancel">отмена</string>
     <string name="lSave">сохранить</string>
-    <string name="lAge">возраст:</string>
-    <string name="eEmptyText">a</string>
+    <string name="lAge">возраст</string>
+    <string name="eEmptyText">aaaaaaaaaaaaa</string>
     <string name="lAdd">Добавить</string>
     <string name="lDelete">Удалить</string>
     <string name="lChange">Изменить</string>
-    <string name="lEnter">Перейти</string>
-
-    <string name="cage_label_error">Название вольера должно содержать только буквы и цифры, быть не пустым</string>
-    <string name="animal_name_error">Кличка животного должна содержать только буквы и быть не пустым</string>
-    <string name="animal_order_error">Название отряда животного должно содержать только буквы и быть не пустым</string>
-    <string name="animal_family_error">Название семейства животного должно содержать только буквы и быть не пустым</string>
-    <string name="animal_date_error">Дата должна быть в интервале 2000 - настоящее время</string>
 </resources>

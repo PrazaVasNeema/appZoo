@@ -7,7 +7,7 @@ import com.example.appstudents.MyConstants.TAG
 import com.example.appstudents.data.Student
 import com.example.appstudents.repository.StudentsRepository
 import java.util.*
-// Транзит для сохранения данных
+
 class StudentInfoViewModel : ViewModel() {
     var student : MutableLiveData<Student> = MutableLiveData()
     init {
@@ -17,15 +17,19 @@ class StudentInfoViewModel : ViewModel() {
         }
     }
 
-    fun save(name: String="",
-             order: String="",
-             family: String="",
-             birthDate : Date = Date()){
+    fun save(lastName: String="",
+             firstName: String="",
+             middleName: String="",
+             birthDate : Date = Date(),
+             faculty : String="",
+             group : String=""){
         if (student.value == null) student.value= Student()
-        student.value!!.name=name
-        student.value!!.order=order
-        student.value!!.family=family
+        student.value!!.lastName=lastName
+        student.value!!.firstName=firstName
+        student.value!!.middleName=middleName
         student.value!!.birthDate=birthDate
+        student.value!!.faculty=faculty
+        student.value!!.group=group
         StudentsRepository.getInstance().updateStudent(student.value!!)
     }
 }

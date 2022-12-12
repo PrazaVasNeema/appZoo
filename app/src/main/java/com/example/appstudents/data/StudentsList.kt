@@ -6,8 +6,4 @@ data class StudentsList(
     override fun toString(): String {
         return "StudentsList(items=$items)"
     }
-    fun Clear()
-    {
-        items.clear()
-    }
 }

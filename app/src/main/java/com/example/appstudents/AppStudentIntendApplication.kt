@@ -2,6 +2,7 @@ package com.example.appstudents
 
 import android.app.Application
 import android.content.Context
+import com.example.appstudents.repository.StudentDBRepository
 
 class AppStudentIntendApplication : Application() {
 
@@ -15,5 +16,8 @@ class AppStudentIntendApplication : Application() {
             return instance!!.applicationContext
         }
     }
-
+    override fun onCreate() {
+        super.onCreate()
+        StudentDBRepository.initialize(this)
+    }
 }

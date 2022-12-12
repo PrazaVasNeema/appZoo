@@ -8,7 +8,7 @@ import com.example.appstudents.MyConstants.TAG
 import com.example.appstudents.data.Student
 import com.example.appstudents.data.StudentsList
 import com.example.appstudents.repository.StudentsRepository
-// Транзит для получения элементов
+
 class StudentListViewModel : ViewModel() {
     var studentsList : MutableLiveData<StudentsList> = MutableLiveData()
     private var studentCurrent : Student = Student()
@@ -32,7 +32,7 @@ class StudentListViewModel : ViewModel() {
         Log.d(TAG, "Подписались StudentListViewModel к StudentsRepository")
     }
 
-    public fun setStudent(student: Student){
+    fun setStudent(student: Student){
         StudentsRepository.getInstance().setCurrentStudent(student)
     }
 
