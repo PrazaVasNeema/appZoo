@@ -28,16 +28,15 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d(TAG, "Main")
-        //showStudentsList()
-//        showDBStudents()
-//        val callback =  object : OnBackPressedCallback(true)
-//            {
-//                override fun handleOnBackPressed() {
-//                    checkLogout()
-//                }
-//            }
-//        onBackPressedDispatcher.addCallback(this,callback)
+//        showStudentsList()
+        showDBStudents()
+        val callback =  object : OnBackPressedCallback(true)
+            {
+                override fun handleOnBackPressed() {
+                    checkLogout()
+                }
+            }
+        onBackPressedDispatcher.addCallback(this,callback)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

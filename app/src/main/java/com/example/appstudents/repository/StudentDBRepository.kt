@@ -1,22 +1,29 @@
 package com.example.appstudents.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import com.example.appstudents.MyConstants
 import com.example.appstudents.data.Student
 import com.example.appstudents.database.StudentDatabase
 import java.util.*
 import java.util.concurrent.Executors
 
-private const val DATABASE_NAME = "student-database"
+private const val DATABASE_NAME = "test.db"
 
 class StudentDBRepository private constructor(context: Context) {
 
     companion object {
         private var INSTANCE: StudentDBRepository? = null
         fun initialize(context: Context) {
+
             if (INSTANCE == null) {
+                Log.d(MyConstants.TAG, "dfdgfd")
+
                 INSTANCE = StudentDBRepository(context)
+
+
             }
         }
         fun get(): StudentDBRepository {
@@ -28,7 +35,7 @@ class StudentDBRepository private constructor(context: Context) {
         context.applicationContext,
         StudentDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).allowMainThreadQueries().build()
 
     private val studentDao = database.studentDao()
 

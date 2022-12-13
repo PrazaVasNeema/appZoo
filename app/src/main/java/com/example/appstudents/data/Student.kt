@@ -8,7 +8,7 @@ import java.util.UUID
 
 @Entity
 data class Student(
-    @PrimaryKey val id : UUID =  UUID.randomUUID(),
+    @PrimaryKey var id : UUID =  UUID.randomUUID(),
     var lastName: String="",
     var firstName: String="",
     var middleName: String="",
