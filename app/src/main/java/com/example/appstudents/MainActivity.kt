@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        Log.d(TAG, "Main")
 
         saveData()
         super.onSaveInstanceState(outState)
@@ -81,7 +80,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        Log.d(TAG, "Main")
 
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)

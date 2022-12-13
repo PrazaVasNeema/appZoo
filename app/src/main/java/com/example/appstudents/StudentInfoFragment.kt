@@ -3,6 +3,7 @@ package com.example.appstudents
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +40,10 @@ class StudentInfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.student_info, container, false)
+        Log.d(MyConstants.TAG, "d")
+
+        val view=inflater.inflate(R.layout.student_info, container, false)?: throw IllegalStateException("Отображение не создано!")
+
         etLastName=view.findViewById(R.id.lastName)
         etFirstName=view.findViewById(R.id.firstName)
         etMiddleName=view.findViewById(R.id.middleName)
@@ -55,6 +59,7 @@ class StudentInfoFragment : Fragment() {
         btnCancel.setOnClickListener {
            closeFragment()
         }
+
         return view
     }
 

@@ -10,7 +10,7 @@ import com.example.appstudents.database.StudentDatabase
 import java.util.*
 import java.util.concurrent.Executors
 
-private const val DATABASE_NAME = "test.db"
+private const val DATABASE_NAME = "test2.db"
 
 class StudentDBRepository private constructor(context: Context) {
 
